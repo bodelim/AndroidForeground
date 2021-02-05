@@ -1,5 +1,6 @@
 package com.prjun.testpyo
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
@@ -26,9 +27,22 @@ class MyService : Service() {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 createNotificationChannel()
             }
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel = new NotificationChannel("channel_id", "channel_name", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationChannel.setDescription("channel description");
+            notificationChannel.enableLights(true); notificationChannel.setLightColor(Color.GREEN);
+            notificationChannel.enableVibration(true); notificationChannel.setVibrationPattern(new long[]{100, 200, 100, 200});
+            notificationChannel.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE); notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+         */
+
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle("MyService is running")
                 .setContentText("MyService is running")
+                    .setOngoing(true)
                 .build()
             Log.d("Test", "start foreground")
             startForeground(NOTIFICATION_ID, notification)
